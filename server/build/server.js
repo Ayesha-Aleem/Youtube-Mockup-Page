@@ -45,7 +45,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var app = (0, express_1.default)();
 var cors_1 = __importDefault(require("cors"));
 var port = 9000;
-var apiKey = 'AIzaSyDrUn2utkRdkq_Nj0dkodgiDknJZ_QtqIU';
+var apiKey = 'AIzaSyBrHAdKDDKDexQ0KOgKi8F8gj-BV-WYYmQ';
 var baseApiUrl = "https://www.googleapis.com/youtube/v3";
 var google = require('googleapis').google;
 var youtube = google.youtube({
@@ -66,14 +66,13 @@ app.get("/search", function (req, res, next) { return __awaiter(void 0, void 0, 
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 searchQuery = req.query.search_query;
-                urls = "".concat(baseApiUrl, "/search?key=").concat(apiKey, "&type=video&part=snippet&q=").concat(searchQuery);
+                urls = "GET https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UCsNkuVj19wfclwicQ4DgAUw&maxResults=25&key=".concat(apiKey, " HTTP/1.1\n      ");
                 return [4 /*yield*/, axios_1.default.get(urls)];
             case 1:
                 response = _a.sent();
-                console.log(response);
                 description = response.data.items.map(function (item) { return item.snippet.description; });
                 url = response.data.items.map(function (item) { return item.snippet.thumbnails.medium.url; });
-                res.send({ description: description, url: url });
+                res.send({ response: response });
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
