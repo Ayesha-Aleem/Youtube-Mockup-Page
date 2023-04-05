@@ -3,8 +3,8 @@ import axios from 'axios'
 import dotenv from "dotenv";
 const app=express()
 import cors from "cors";
-const port=8000
-const apiKey='AIzaSyC2aQqYpRYtAOlJ__pyR8-ueCnc2FDe7FY'
+const port=9000
+const apiKey='AIzaSyBrHAdKDDKDexQ0KOgKi8F8gj-BV-WYYmQ'
 const baseApiUrl="https://www.googleapis.com/youtube/v3"
 const {google}=require('googleapis')
 const youtube=google.youtube({
@@ -26,9 +26,9 @@ app.get("/search", async (req, res, next) => {
       const urls=`${baseApiUrl}/search?key=${apiKey}&type=video&part=snippet&q=${searchQuery}`
       const response=await axios.get(urls)
       console.log(response);
-      const description=response.data.items.map((item:any)=>item.snippet.description)
-      const url=response.data.items.map((item:any)=>item.snippet.thumbnails.medium.url)
-      res.send({description,url});
+      // const description=response.data.items.map((item:any)=>item.snippet.description)
+      // const url=response.data.items.map((item:any)=>item.snippet.thumbnails.medium.url)
+      // res.send({description,url});
     } 
     catch (err) {
       console.log(err)

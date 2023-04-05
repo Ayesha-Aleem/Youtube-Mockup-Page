@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
 
   const fetch = () => {
     axios
-      .get("http://localhost:8000/search")
+      .get("http://localhost:9000/search")
       .then((res: any) => {
         setdescription(res?.data?.description)
         seturl(res?.data?.url)
