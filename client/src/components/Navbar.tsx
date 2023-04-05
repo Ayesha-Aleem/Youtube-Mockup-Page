@@ -38,6 +38,8 @@ const Navbar: React.FC = () => {
   const tragetRef = useRef<HTMLDivElement>(null);
   const [description, setdescription] = useState<any>([]);
   const [url, seturl] = useState<any>([]);
+  const [videoUrl, setVideoUrl] = useState<string>(array2[0].link)
+  const [playState, setPlayState] = useState<boolean>(false)
   useEffect(() => {
     fetch();
   }, []);
@@ -53,11 +55,11 @@ const Navbar: React.FC = () => {
         console.log(err);
       });
   };
- const handleevent=()=>{
 
- }
-  console.log(description)
-  console.log(url)
+  const handleevent = (link: string) => {
+    setVideoUrl(link);
+    setPlayState(true);
+  }
   return (
     <div>
       <div className="search-filed">
@@ -68,13 +70,13 @@ const Navbar: React.FC = () => {
           {/* {
             titles
           } */}
-          <ReactPlayer url="https://youtu.be/HArC6GxkMMI" />
+          <ReactPlayer url={videoUrl} playing={playState} />
           <p style={{ border: "1px solid lightgrey" }}>
             Search User and Create Chat APIs - MERN Stack Chat App with
             Socket.IO #10
           </p>
         </div>
-        <div className="container child" ref={tragetRef} id="videos" onClick={handleevent}>
+        <div className="container child" ref={tragetRef} id="videos">
 
           {array2.map((movie) => (
             <div
@@ -84,9 +86,15 @@ const Navbar: React.FC = () => {
                 width: "340px",
                 height: "150px",
                 border: "1px solid lightGrey",
+                cursor: "pointer",
               }}
+              onClick={() => { handleevent(movie.link) }}
             >
-              <div style={{ marginTop: "1rem" }}>
+              <div
+                style={{
+                  marginTop: "1rem",
+                  padding: "10px",
+                }}>
                 <ReactPlayer width="180px" height="100px" url={movie.link} />
               </div>
               <div
