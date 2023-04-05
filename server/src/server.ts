@@ -23,12 +23,12 @@ app.get("/",(req,res)=>{
 app.get("/search", async (req, res, next) => {
     try {
       const searchQuery = req.query.search_query;
-      const urls=`${baseApiUrl}/search?key=${apiKey}&type=video&part=snippet&q=${searchQuery}`
+      const urls=`GET https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UCsNkuVj19wfclwicQ4DgAUw&maxResults=25&key=${apiKey} HTTP/1.1
+      `
       const response=await axios.get(urls)
-      console.log(response);
-      // const description=response.data.items.map((item:any)=>item.snippet.description)
-      // const url=response.data.items.map((item:any)=>item.snippet.thumbnails.medium.url)
-      // res.send({description,url});
+      const description=response.data.items.map((item:any)=>item.snippet.description)
+      const url=response.data.items.map((item:any)=>item.snippet.thumbnails.medium.url)
+      res.send({response});
     } 
     catch (err) {
       console.log(err)
